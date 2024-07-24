@@ -16,6 +16,7 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String email;
+    private String password;
     private String name;
     private String nickname;
     private String profileImg;
@@ -27,5 +28,5 @@ public class Member {
     private Timestamp weekTime;
     private long dayDist;
     private long weekDist;
-    private String password;
+
 }
