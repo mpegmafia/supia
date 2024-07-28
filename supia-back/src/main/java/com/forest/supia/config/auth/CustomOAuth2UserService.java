@@ -1,9 +1,6 @@
 package com.forest.supia.config.auth;
 
-import com.forest.supia.member.model.CustomOAuth2User;
-import com.forest.supia.member.model.GoogleResponse;
-import com.forest.supia.member.model.Member;
-import com.forest.supia.member.model.OAuth2Response;
+import com.forest.supia.member.model.*;
 import com.forest.supia.member.repository.MemberRepository;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -28,7 +25,11 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
         OAuth2Response oAuth2Response = null;
-        if(registrationId.equals("google")) {
+        if (registrationId.equals("naver")) {
+
+            oAuth2Response = new NaverResponse(oAuth2User.getAttributes());
+        }
+        else if(registrationId.equals("google")) {
             oAuth2Response = new GoogleResponse(oAuth2User.getAttributes());
         }
         else {
@@ -47,7 +48,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             member.setName(oAuth2Response.getName());
             member.setNickname(null);
             member.setProfileImg(null);
-            member.setPhone(null);
 
             memberRepository.save(member);
         }

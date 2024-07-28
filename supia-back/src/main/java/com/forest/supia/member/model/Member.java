@@ -16,17 +16,15 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String email;
-    private String password;
     private String name;
     private String nickname;
+    private String password;
     private String profileImg;
-    private String phone;
     private int level;
     private int exp;
     private int point;
-    private Timestamp dayTime;
-    private Timestamp weekTime;
-    private long dayDist;
-    private long weekDist;
-
+    private int visit;
+    private String joinDate;
+    private String provider;
+    private String providerId;
 }
