@@ -35,7 +35,7 @@ public class SecurityConfig {
                                 .userService(customOAuth2UserService)));
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/", "/login","/members/register", "/members/login", "/oauth2/**").permitAll()
+                        .requestMatchers("/", "/login","/members/register", "/members/login", "members/my-info/**", "/oauth2/**").permitAll()
                         .anyRequest().authenticated());
         return http.build();
     }
