@@ -24,7 +24,6 @@ public class Member {
     private int exp;
     private int point;
     private int visit;
-    private String joinDate;
     private String provider;
     private String providerId;
 }
