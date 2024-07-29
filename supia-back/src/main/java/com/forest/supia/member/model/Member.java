@@ -14,7 +14,7 @@ import java.sql.Timestamp;
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long memberId;
     private String email;
     private String name;
     private String nickname;
@@ -24,6 +24,4 @@ public class Member {
     private int exp;
     private int point;
     private int visit;
-    private String provider;
-    private String providerId;
 }

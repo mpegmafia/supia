@@ -5,6 +5,7 @@ import com.forest.supia.member.model.Member;
 import com.forest.supia.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -16,6 +17,9 @@ import java.util.Map;
 public class MemberController {
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/list")
     public ResponseEntity<List<Member>> listMember(){
@@ -57,7 +61,14 @@ public class MemberController {
 
         Map<String, String> response = new HashMap<>();
 
-        if (member != null && member.getPassword().equals(password)) {
+//        if (memberDto != null && passwordEncoder.matches(memberLoginRequestDto.getPassword(), memberDto.getPassword())) {
+//            String accessToken = jwtUtil.generateAccessToken(memberDto.getId());
+//            String refreshToken = jwtUtil.generateRefreshToken(memberDto.getId());
+//            // refreshToken을 데이터베이스에 저장
+//            memberMapper.updateToken(memberDto.getId(), refreshToken);
+//            return new TokenDto(accessToken, refreshToken);
+//        }
+        if (member != null && passwordEncoder.matches(password, member.getPassword())){
             String token = JwtUtil.generateToken(member);
             response.put("token", token);
             response.put("message", "로그인이 완료되었습니다.");
