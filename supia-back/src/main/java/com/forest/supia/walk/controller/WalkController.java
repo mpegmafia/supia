@@ -20,7 +20,7 @@ public class WalkController {
 
     @PostMapping
     public ResponseEntity<?> save(@RequestBody WalkDto walkDto) throws Exception {
-        int cnt = walkService.walk(walkDto);
+        Long cnt = walkService.walk(walkDto);
         if(cnt==0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("산책 저장 실패");
         return ResponseEntity.ok(cnt);
     }

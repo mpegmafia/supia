@@ -1,0 +1,3 @@
+*.pt
+.conda
+supia-back/src/main/resources/application.properties
