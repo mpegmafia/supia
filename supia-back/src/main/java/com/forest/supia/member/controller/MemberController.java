@@ -2,7 +2,9 @@ package com.forest.supia.member.controller;
 
 import com.forest.supia.config.auth.JwtUtil;
 import com.forest.supia.member.model.Member;
+import com.forest.supia.member.repository.MemberRepository;
 import com.forest.supia.member.service.MemberService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,6 +19,9 @@ import java.util.Map;
 public class MemberController {
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    private MemberRepository memberRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -61,13 +66,6 @@ public class MemberController {
 
         Map<String, String> response = new HashMap<>();
 
-//        if (memberDto != null && passwordEncoder.matches(memberLoginRequestDto.getPassword(), memberDto.getPassword())) {
-//            String accessToken = jwtUtil.generateAccessToken(memberDto.getId());
-//            String refreshToken = jwtUtil.generateRefreshToken(memberDto.getId());
-//            // refreshToken을 데이터베이스에 저장
-//            memberMapper.updateToken(memberDto.getId(), refreshToken);
-//            return new TokenDto(accessToken, refreshToken);
-//        }
         if (member != null && passwordEncoder.matches(password, member.getPassword())){
             String token = JwtUtil.generateToken(member);
             response.put("token", token);
@@ -85,4 +83,23 @@ public class MemberController {
         return "login";
     }
 
+    @Transactional
+    @PutMapping("/my-info/{memberEmail}")
+    public ResponseEntity<Map<String, String>> modifyMember(@PathVariable String memberEmail, @RequestBody Map<String, String> user) {
+        System.out.println(memberEmail);
+        Member mem = memberRepository.findByEmail(memberEmail);
+        System.out.println(mem);
+        Map<String, String> response = new HashMap<>();
+        if (mem != null) {
+            mem.setNickname(user.get("name"));
+            mem.setName(user.get("nickname"));
+            response.put("nickname", mem.getNickname());
+            response.put("name", mem.getName());
+            response.put("message", "회원 정보 수정이 완료되었습니다.");
+            return ResponseEntity.ok().body(response);
+        } else {
+            response.put("message", "회원 정보 수정에 실패하였습니다.");
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
 }
