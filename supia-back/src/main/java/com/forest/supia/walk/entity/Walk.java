@@ -1,14 +1,15 @@
 package com.forest.supia.walk.entity;
 
 //import com.forest.supia.item.entity.Item;
+import com.forest.supia.item.entity.Item;
 import com.forest.supia.member.model.Member;
-import com.forest.supia.walk.dto.WalkDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -26,15 +27,20 @@ public class Walk {
 
     private LocalDate walkDate;
     private long walkTime;
-    private long distance;
+    private double distance;
 
-//    @OneToMany
-//    private List<Item> items;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    private List<Item> items = new ArrayList<>();
     //==연관관계 메서드==//
 
+    public void addItem(Item item) {
+        items.add(item);
+        item.setWalk(this);
+    }
 
     //==생성 메서드==//
-    public static Walk createWalk(Member member, LocalDate walkDate, long walkTime, long distance) {
+    public static Walk createWalk(Member member, LocalDate walkDate, long walkTime, double distance, List<Item> items) {
+
 
         Walk walk = new Walk();
 
@@ -42,12 +48,21 @@ public class Walk {
         walk.walkDate = walkDate;
         walk.walkTime = walkTime;
         walk.distance = distance;
-//        walk.
+
+        for(Item item : items) {
+            walk.addItem(item);
+        }
 
         // member 포인트 설정
-         member.addPointDistance(distance);
-//         member.addPointDistance(size);
+        member.addPointDistance(distance);
+        member.addPointItem(items.size());
         return walk;
 
     }
+
+//    public void setMember(Member member) {
+//        this.member = member;
+//
+//    }
+
 }

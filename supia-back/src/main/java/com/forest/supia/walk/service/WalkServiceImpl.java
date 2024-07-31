@@ -1,5 +1,7 @@
 package com.forest.supia.walk.service;
 
+import com.forest.supia.item.dto.ItemDto;
+import com.forest.supia.item.entity.Item;
 import com.forest.supia.member.model.Member;
 import com.forest.supia.member.repository.MemberRepository;
 import com.forest.supia.walk.repository.WalkRepository;
@@ -12,6 +14,8 @@ import org.springframework.stereotype.Service;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -35,7 +39,20 @@ public class WalkServiceImpl implements WalkService{
         long walkTime =  duration.toSeconds();
         LocalDate walkDate = LocalDate.from(endDateTime);
 
-        Walk walk = Walk.createWalk(member, walkDate, walkTime, walkDto.getDistance());
+        List<Item> items = new ArrayList<>();
+
+        for(ItemDto itemDto : walkDto.getItems()) {
+            String pos = itemDto.getPosition();
+
+            String[] buf = pos.split(" ");
+            Item item = Item.createItem(member, walkDate, buf[0], buf[2], itemDto.getImageUrl(), itemDto.getOriginalUrl());
+            items.add(item);
+        }
+
+
+
+        Walk walk = Walk.createWalk(member, walkDate, walkTime, walkDto.getDistance(), items);
+
 
         walkRepository.save(walk);
         return walk.getId();

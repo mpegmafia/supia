@@ -43,8 +43,11 @@ public class Member {
     }
 
     public void addPointItem(int cnt) {
+
         this.point += cnt*100;
     }
+
+//    public void addExp
 
 
 

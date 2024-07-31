@@ -1,6 +1,8 @@
 package com.forest.supia.walk.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.forest.supia.item.dto.ItemDto;
+import com.forest.supia.item.entity.Item;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,5 +22,5 @@ public class WalkDto {
     private LocalDateTime walkEnd;
     private Long distance;
 
-//    private List<>
+    private List<ItemDto> items;
 }
