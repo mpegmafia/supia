@@ -20,9 +20,14 @@ public class MemberService {
         return memberRepository.findAll();
     }
 
-    public void saveMember(Member member) {
-        member.setPassword(passwordEncoder.encode(member.getPassword()));
+
+    public Long saveMember(Member memberInfo) {
+        String encoded = passwordEncoder.encode((memberInfo.getPassword()));
+        Member member = Member.createMember(memberInfo.getEmail(), memberInfo.getName(), memberInfo.getNickname(), encoded);
+
         memberRepository.save(member);
+        return member.getMemberId();
+
     }
 
     public Member findByEmail(String email) {

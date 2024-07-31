@@ -6,6 +6,7 @@ import com.forest.supia.member.repository.MemberRepository;
 import com.forest.supia.member.service.MemberService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -38,23 +39,12 @@ public class MemberController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Map<String, String>> registerMember(@RequestBody Map<String, String> member) {
-        String email = member.get("email");
-        String name = member.get("name");
-        String password = member.get("password");
-        String nickname = member.get("nickname");
+    public ResponseEntity<?> registerMember(@RequestBody Member member) {
 
-        Member newMember = new Member();
-        newMember.setEmail(email);
-        newMember.setName(name);
-        newMember.setPassword(password);
-        newMember.setNickname(nickname);
 
-        memberService.saveMember(newMember);
-
-        Map<String, String> response = new HashMap<>();
-        response.put("message", "회원 등록이 완료되었습니다.");
-        return ResponseEntity.ok(response);
+        Long id = memberService.saveMember(member);
+        if(id==null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("산책 저장 실패");
+        return ResponseEntity.ok(id);
     }
 
     @PostMapping("/login")

@@ -13,7 +13,7 @@ import java.util.List;
 
 
 @Entity
-@Getter @Setter
+@Getter
 @Table(name = "Walk")
 public class Walk {
 
@@ -37,13 +37,16 @@ public class Walk {
     public static Walk createWalk(Member member, LocalDate walkDate, long walkTime, long distance) {
 
         Walk walk = new Walk();
-        walk.setMember(member);
-        walk.setWalkTime(walkTime);
-        walk.setWalkDate(walkDate);
-        walk.setDistance(distance);
+
+        walk.member = member;
+        walk.walkDate = walkDate;
+        walk.walkTime = walkTime;
+        walk.distance = distance;
+//        walk.
 
         // member 포인트 설정
-//         member.addPoint(distance);
+         member.addPointDistance(distance);
+//         member.addPointDistance(size);
         return walk;
 
     }
