@@ -17,8 +17,8 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class WalkServiceImpl implements WalkService{
 
-    private WalkRepository walkRepository;
-    private MemberRepository memberRepository;
+    private final WalkRepository walkRepository;
+    private final MemberRepository memberRepository;
 
     @Override
     @Transactional

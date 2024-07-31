@@ -1,6 +1,7 @@
 package com.forest.supia.walk.controller;
 
 
+import com.forest.supia.config.auth.JwtUtil;
 import com.forest.supia.walk.dto.WalkDto;
 import com.forest.supia.walk.service.WalkService;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +21,10 @@ public class WalkController {
 
     @PostMapping
     public ResponseEntity<?> save(@RequestBody WalkDto walkDto) throws Exception {
-        Long cnt = walkService.walk(walkDto);
-        if(cnt==0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("산책 저장 실패");
-        return ResponseEntity.ok(cnt);
+        Long id = walkService.walk(walkDto);
+        if(id==null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("산책 저장 실패");
+        return ResponseEntity.ok(id);
+
+
     }
 }

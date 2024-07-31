@@ -1,6 +1,6 @@
 package com.forest.supia.walk.entity;
 
-import com.forest.supia.item.entity.Item;
+//import com.forest.supia.item.entity.Item;
 import com.forest.supia.member.model.Member;
 import com.forest.supia.walk.dto.WalkDto;
 import jakarta.persistence.*;
@@ -28,8 +28,8 @@ public class Walk {
     private long walkTime;
     private long distance;
 
-    @OneToMany
-    private List<Item> items;
+//    @OneToMany
+//    private List<Item> items;
     //==연관관계 메서드==//
 
 
@@ -43,7 +43,7 @@ public class Walk {
         walk.setDistance(distance);
 
         // member 포인트 설정
-        // member.addPoint(distance);
+//         member.addPoint(distance);
         return walk;
 
     }
