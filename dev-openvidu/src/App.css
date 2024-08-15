@@ -1,0 +1,122 @@
+.stream-container {
+  padding: 0;
+}
+
+#session-header {
+  display: flex;
+  position: fixed;
+  right: 5%;
+  bottom: 3%; /* 화면 하단에 고정 */
+  width: 100%; /* 버튼들이 전체 너비를 차지하도록 */
+  justify-content: space-between; /* 버튼 사이에 공간을 균등하게 배분 */
+  gap: 10px; /* 버튼 사이에 간격 추가 */
+}
+
+#buttonSwitchCamera {
+  padding: 10px 20px;
+  background-color: #28a745; /* 버튼의 배경색 */
+  color: white; /* 버튼의 텍스트 색상 */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#buttonSwitchCamera {
+  padding: 10px 20px;
+  background-color: #28a745; /* 버튼의 배경색 */
+  color: white; /* 버튼의 텍스트 색상 */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#buttonCapture {
+  padding: 10px 20px;
+  background-color: #ffffff; /* 버튼의 배경색 */
+  color: black; /* 버튼의 텍스트 색상 */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#buttonLeaveSession {
+  padding: 10px 20px;
+  background-color: #f44336; /* 버튼의 배경색 */
+  color: white; /* 버튼의 텍스트 색상 */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#buttonSwitchCamera:hover {
+  background-color: #218838; /* 호버 시 배경색 */
+}
+
+.btn {
+  background-color: white; /* 버튼의 배경색 */
+  color: black; /* 버튼의 텍스트 색상 */
+  border: none;
+  padding: 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 50px; /* 모서리를 둥글게 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 10px; /* 버튼 사이에 약간의 간격 추가 */
+}
+
+.pictureIcon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  position: fixed;
+  bottom: 40px;
+  right: 50%;
+  background-color: white;
+  border-color: "black";
+  border-width: 1;
+}
+
+#session-footer {
+  position: fixed;
+  bottom: 20px;
+  width: 100%; /* 화면 전체 너비로 확장 */
+  display: flex;
+  justify-content: center; /* 버튼들을 중앙에 배치 */
+  align-items: center; /* 버튼들을 수직으로 가운데 정렬 */
+  z-index: 1000;
+}
+
+#CallEnd {
+  width: 60px; /* 좌측 버튼의 크기 */
+  height: 60px;
+}
+
+#Capture {
+  width: 70px; /* 가운데 버튼을 다른 버튼보다 10% 더 크게 설정 */
+  height: 70px;
+  background-color: white; /* 하얀색 배경 */
+  border: 2px solid #ddd; /* 약간의 테두리 추가 */
+}
+
+#switchCamera {
+  width: 60px; /* 우측 버튼의 크기 */
+  height: 60px;
+}
+
+#CallEnd svg {
+  width: 24px;
+  height: 24px;
+  color: #f44336; /* 빨간색 아이콘 */
+}
+
+#switchCamera svg {
+  width: 24px;
+  height: 24px;
+  color: #4caf50; /* 초록색 아이콘 */
+}
