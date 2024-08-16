@@ -21,7 +21,7 @@ export default function Header({label, goto, noback}) {
   return (
     <View style={styles.HeaderContainer}>
       <View style={{left: 10}}>
-        {!noback && (
+        {!noback && label !== '나의 도감' && (
           <Pressable onPress={onPressBackIcon}>
             <Entypo
               name="chevron-small-left"

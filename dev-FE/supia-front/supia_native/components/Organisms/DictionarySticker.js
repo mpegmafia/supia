@@ -19,7 +19,7 @@ import axios from 'axios';
 // import loginStore from "../store/useLoginStore";
 import {Server_IP} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+const {width, height} = Dimensions.get('window');
 export default function DictionarySticker({id, setShowSticker, speciesName}) {
   const {
     droppedImages,
@@ -133,7 +133,8 @@ export default function DictionarySticker({id, setShowSticker, speciesName}) {
   };
 
   return (
-    <GestureHandlerRootView style={styles.container}>
+    <View style={[styles.container, { borderRadius: 32 }]}>
+    <GestureHandlerRootView>
       <View style={styles.headerContainer}>
         <Header label="나의 도감" goto="MyForest" />
         <Pressable onPress={() => setShowSticker(false)} style={{padding: 7}}>
@@ -152,15 +153,17 @@ export default function DictionarySticker({id, setShowSticker, speciesName}) {
 
           return (
             <View key={item.id} style={[styles.card, used && styles.usedCard]}>
+
               <LongPressGestureHandler onActivated={onLongPress(item.id)}>
                 <View style={styles.sticker}>
                   <Image
                     source={{uri: item.imgUrl}}
                     style={{
-                      width: 110,
-                      height: 110,
-                      marginVertical: 4,
-                      transform: [{rotate: '90deg'}],
+                      width: 80,
+                      height: 80,
+                      marginVertical: 15,
+                      // paddingBottom: 15
+                      // transform: [{rotate: '90deg'}],
                     }}
                   />
 
@@ -181,14 +184,15 @@ export default function DictionarySticker({id, setShowSticker, speciesName}) {
         })}
       </ScrollView>
     </GestureHandlerRootView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    width: 362,
-    height: 408,
-    borderRadius: 32,
+    width: height*0.45,
+    height: width,
+    // borderRadius: 32,
     backgroundColor: '#FCFCFC',
   },
   headerContainer: {
@@ -229,4 +233,7 @@ const styles = StyleSheet.create({
     borderWidth: 3, // 두꺼운 경계선
     borderColor: 'green', // 원하는 색상으로 변경
   },
+  closeIcon: {
+    paddingRight: 15
+  }
 });
