@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI, File, Form, UploadFile, HTTPException
 from fastapi.responses import JSONResponse
 from PIL import Image
@@ -12,13 +13,18 @@ from convert2idrawing import color_hand_drawing
 from dotenv import load_dotenv
 import base64
 
+os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
+os.environ["CUDA_VISIBLE_DEVICES"]= "0"
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+
 load_dotenv()
 
 app = FastAPI()
 
 # Load models
+
 seg_model = SAM("./model/sam_b.pt")
-cls_model = YOLO("./model/cls-x.pt")
+cls_model = YOLO("./model/19cls.pt")
 
 # Set AWS S3
 AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
@@ -67,22 +73,26 @@ species_dict = {
 }
 
 
-@app.post("/ai/process-image/")
+@app.post("/ai/process-image")
 async def process_image(
     member_id: str = Form(...),
     date: str = Form(...),
     time: str = Form(...),
     file: UploadFile = File(...),
 ):
+    print("hooray")
     if not file:
+        print("not file")
         raise HTTPException(status_code=400, detail="File is required")
 
     if not (
         file.filename.lower().endswith(".png") or file.filename.lower().endswith(".jpg")
     ):
+        print("if not")
         raise HTTPException(status_code=400, detail="Only .png files are allowed")
 
     try:
+        print("try")
         # Read image
         image_data = await file.read()
         image = Image.open(BytesIO(image_data))
@@ -178,6 +188,8 @@ async def process_image(
         s3_client.upload_file(output_image_path, AWS_S3_BUCKET_NAME, s3_file_name)
 
         file_url = f"{AWS_S3_URL}/{s3_file_name}"
+
+        print(123)
 
         return JSONResponse(
             content={
